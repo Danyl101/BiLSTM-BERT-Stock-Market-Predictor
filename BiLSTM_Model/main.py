@@ -1,15 +1,15 @@
+from lstm_utils import device,evaluate,predict,plot,set_deterministic
+set_deterministic()
 import optuna
 import torch.optim as optim 
 from lstm_model import BiLSTMModel,TimeWeightedLoss,objective
-from lstm_utils import device,evaluate,predict,plot
 from lstm_dataload import train_loader, val_loader,test_loader
 import torch
 
-model=BiLSTMModel(input_size=4, hidden_size=64, dropout=0.3).to(device)
-optimizer = optim.Adam(model.parameters(), lr=0.001) #Defines optimizer
-criterion_train = TimeWeightedLoss()  # Example of a custom loss function
-
 def train_model():
+    model=BiLSTMModel(input_size=4, hidden_size=64, dropout=0.3, num_layers=2, batch_size=32).to(device)
+    optimizer = optim.Adam(model.parameters(), lr=0.001) #Defines optimizer
+    criterion_train = TimeWeightedLoss()  # Example of a custom loss function
     epochs = 15
     for epoch in range(epochs):
         model.train()
@@ -34,10 +34,11 @@ def train_model():
 
     print(f"MSE: {mse:.4f}, RMSE: {rmse:.4f}, MAE: {mae:.4f}, R²: {r2:.4f}, MAPE: {mape:.2f}%")
     plot(test_preds, test_actuals)  # Plot predictions vs actual values
-    
+
+def optimize_hyperparameters():
     study = optuna.create_study(direction="minimize")
-    study.optimize(objective, n_trials=10,timeout=600)
-    
+    study.optimize(objective, n_trials=75,timeout=2000)
+
     print("Best trial:")
     trial = study.best_trial
     print(f"  Value (MSE): {trial.value}")
@@ -46,6 +47,6 @@ def train_model():
         print(f"    {key}: {value}")
     
 if __name__=="__main__":
-    train_model()
+    optimize_hyperparameters()
     print("Training complete.")
         

@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
+import random
 from torch.utils.data import DataLoader
 
 import numpy as np
@@ -19,6 +20,15 @@ logging.basicConfig(
         format="%(asctime)s [%(levelname)s] %(message)s",
         filemode="w",
     )
+
+
+def set_deterministic(seed=42):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 def log_cpu_memory(tag=""):
         process = psutil.Process(os.getpid())

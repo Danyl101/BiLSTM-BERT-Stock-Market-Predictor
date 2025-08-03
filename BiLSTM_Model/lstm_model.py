@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import optuna
+import os
 import torch.optim as optim
 from torch.utils.data import DataLoader, Dataset
 import logging
@@ -40,10 +41,10 @@ def objective(trial):
     try:
         logging.info(f"Starting trial {trial.number}")
         start_time= time.time()
-        hidden_size = trial.suggest_categorical("hidden_size", [32, 64])
+        hidden_size = trial.suggest_categorical("hidden_size", [32, 64 ,128, 256])
         dropout = trial.suggest_categorical("dropout", [0.1, 0.2, 0.3, 0.5])
         learning_rate = trial.suggest_float("learning_rate", 1e-5, 1e-1, log=True)
-        batch_size = trial.suggest_categorical("batch_size", [16, 32])
+        batch_size = trial.suggest_categorical("batch_size", [16, 32 ,64])
             
         logging.info(f"Trial #{trial.number} Start Time:{start_time}  Hyperparameters: "
                     f"lr={learning_rate}, dropout={dropout}, hidden_size={hidden_size}, batch_size={batch_size}")
@@ -57,7 +58,7 @@ def objective(trial):
         criterion = nn.MSELoss()
         optimizer = optim.Adam(model.parameters(), lr=learning_rate) #Defines optimizer
 
-        epoch = 15 #No of epochs
+        epoch = 75 #No of epochs
         # Training loop (light version)
         for epoch in range(epoch):
             model.train()
@@ -85,7 +86,12 @@ def objective(trial):
         truths = torch.cat(truths, dim=0)
 
         mse, _, _, _, _ = evaluate_metrics(truths, preds)
-        torch.save(model.state_dict(), f"checkpoints/best_model_trial_{trial.number}.pt")
+        try:
+            logging.info("Directory creation underway")
+            os.makedirs('Checkpoints', exist_ok=True)  # Ensure directory exists
+            torch.save(model.state_dict(), f"checkpoints/best_model_trial_{trial.number}.pt")
+        except Exception as e:
+            logging.error(f"Directory creation failed {e}")
         del model
         del optimizer
         torch.cuda.empty_cache()  # no GPU, but still clears PyTorch cache
@@ -96,7 +102,7 @@ def objective(trial):
     except Exception as e:
         logging.error(f"Issue occured at trial {trial.number} {e}")
         logging.error(f"Traceback: {traceback.format_exc()}")
-        return float("inf")  # Return a high value to indicate failure
+        raise
 
 #Custom Loss function
 class TimeWeightedLoss(nn.Module):

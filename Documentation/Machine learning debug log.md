@@ -122,6 +122,17 @@ d:\Prediction Model\venv\Lib\site-packages\torch\nn\modules\loss.py:610: UserWar
 
   Essentially what happened here was X[B,H] and Y[B] are supposed to be matched for bayesian optimization , but the squeeze function present removes any 1 dimensional value present , since at the end H=1 & B=1 , it meant that X had both dimensions removed X[] Y[B] which caused a mismatch , torch tries to broadcast these together to correct , but such acts can cause issues
 
+  __________________________________________________
+
+  Error 
+
+  Epoch [14/15] Train Loss: 0.4868 | Val Loss: 0.1548
+Epoch [15/15] Train Loss: 0.4791 | Val Loss: 0.0861
+Test Loss: 3.1774
+MSE: 0.2191, RMSE: 0.4680, MAE: 0.4177, R²: -13.0788, MAPE: 18.88%
+
+Optuna Trials never triggering 
+
 
 
             
