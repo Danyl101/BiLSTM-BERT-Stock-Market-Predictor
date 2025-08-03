@@ -50,12 +50,14 @@ class TimeSeriesDataset(Dataset):
 
     #Returns how many sequences are there in the dataset
     def __len__(self):
-        return len(self.data) - self.lookback
+        prediction_gap=45
+        return len(self.data) - self.lookback -prediction_gap
 
     #Returns the sequence and the target value at the index
     def __getitem__(self, idx):
+        prediction_gap=45
         x = self.data[idx:idx+self.lookback]
-        y = self.target[idx+self.lookback]
+        y = self.target[idx+self.lookback+prediction_gap]
         return torch.tensor(x, dtype=torch.float32), torch.tensor(y, dtype=torch.float32)
     
         

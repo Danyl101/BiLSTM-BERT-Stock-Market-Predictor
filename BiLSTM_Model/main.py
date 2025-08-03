@@ -7,10 +7,10 @@ from lstm_dataload import train_loader, val_loader,test_loader
 import torch
 
 def train_model():
-    model=BiLSTMModel(input_size=4, hidden_size=64, dropout=0.3, num_layers=2, batch_size=32).to(device)
-    optimizer = optim.Adam(model.parameters(), lr=0.001) #Defines optimizer
+    model=BiLSTMModel(input_size=4, hidden_size=128, dropout=0.3, num_layers=2, batch_size=16).to(device)
+    optimizer = optim.Adam(model.parameters(), lr=5.401798979253006e-05) #Defines optimizer
     criterion_train = TimeWeightedLoss()  # Example of a custom loss function
-    epochs = 15
+    epochs = 75
     for epoch in range(epochs):
         model.train()
         total_train_loss = 0
@@ -31,6 +31,8 @@ def train_model():
     print(f"Test Loss: {test_loss:.4f}")
     # Optional: Get predictions and true values for plotting
     test_preds, test_actuals, mse, rmse, mae, r2, mape = predict(model, test_loader)
+    
+    torch.save(model.state_dict(), f"checkpoints/best_model.pt")
 
     print(f"MSE: {mse:.4f}, RMSE: {rmse:.4f}, MAE: {mae:.4f}, R²: {r2:.4f}, MAPE: {mape:.2f}%")
     plot(test_preds, test_actuals)  # Plot predictions vs actual values
@@ -47,6 +49,6 @@ def optimize_hyperparameters():
         print(f"    {key}: {value}")
     
 if __name__=="__main__":
-    optimize_hyperparameters()
+    train_model()
     print("Training complete.")
         
