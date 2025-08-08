@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { addfilter, addsite } from "api/scraper_api";
+import { removefilter,removesite } from "api/typescript_api/remove_api";
+import { addfilter, addsite } from "api/typescript_api/add_api";
 
 function App() {
   const [list, setList] = useState<string[]>([]);
@@ -20,6 +21,26 @@ function App() {
       console.log("Site added API Response", res);
     } catch (err) {
       console.error("Site add failed", err);
+    }
+  };
+
+  const filterremove = async()=>{
+    try{
+      const res=await removefilter([input]);
+      console.log("Remove Filter API Response",res)
+    }
+    catch (err){
+      console.log("Filter removal failed",err)
+    }
+  };
+
+  const siteremove = async()=>{
+    try{
+      const res=await removesite([input]);
+      console.log("Remove Filter API Response",res)
+    }
+    catch (err){
+      console.log("Filter removal failed",err)
     }
   };
 
@@ -48,6 +69,20 @@ function App() {
           className="p-2 bg-blue-600 text-white rounded"
         >
           Add Site
+        </button>
+
+        <button 
+        onClick={filterremove}
+        className="p-2 bg-blue-600 text-white rounded"
+        >
+          Remove Filter
+        </button>
+
+        <button 
+        onClick={siteremove}
+        className="p-2 bg-blue-600 text-white rounded"
+        >
+          Remove Site
         </button>
       </div>
     </div>

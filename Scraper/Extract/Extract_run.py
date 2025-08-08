@@ -4,7 +4,7 @@ import logging
 
 from content_extract import extract_multiple_articles
 
-with open('Datasets/scraped_articles.json', 'r') as f: #Loads json file 
+with open('Datasets/scraped_article.json', 'r') as f: #Loads json file 
     article = json.load(f) 
     json_dict=article["articles"] #articles is dictionary inside the json file ,this loads the actual articles into json_dict
 

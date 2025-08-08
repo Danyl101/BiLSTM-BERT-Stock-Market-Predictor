@@ -272,7 +272,13 @@ ___________________________________
 
 Iteration 2 [API]
 
-Advanced the apis especially typescript to receive inputs from the browser, changed the funcionalities a bit , now instead of adding and viewing only , we instead can now add filters and sites view them as well as remove any ones , these were all done in async and was done alongside the gui developed by vercel
+Advanced the apis especially typescript to receive inputs from the browser, changed the funcionalities a bit , now instead of adding and viewing only , we instead can now add filters and sites view them as well as remove any ones , these were all done in async , ran into a few glitches here and there , so added logging to the entire flask api 
+___________________________________
+
+Iteration 3[API]
+
+Modularized the code ,split the flask api into two addition api and removal api and the same was also done to typescript apis , build a new run program for flask to avoid manually running the individual flask files ,but ran into some issues here due to the pathing issues 
+
 ___________________________________
 ___________________________________
 
@@ -285,7 +291,7 @@ ___________________________________
 
 Iteration 1[REACT]
 
-So decided to offload the design development of the program to vercel and created a simple clean gui with it , the functionality remained the exact same but there were alot of gui additions
+Decidied to stop development of gui until the api functionalities were all working , decided to develop a barebones structure with each api call having a button and sharing the same textfield , gui will be further developed once all the api calls are properly working
 
 
 
