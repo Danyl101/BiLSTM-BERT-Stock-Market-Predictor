@@ -170,7 +170,3 @@ See the `LICENSE` file for details.
 
 Feel free to fork this repo, open issues, or submit pull requests!
 For significant changes, please discuss via GitHub issues first.
-
----
-
-```
