@@ -1,13 +1,15 @@
 from flask_cors import CORS
 from flask import Flask
 import json
-from flask import request, jsonify
+from flask import Blueprint,request, jsonify
 app = Flask(__name__)
 CORS(app)
 
-from utils import logging
+from .utils import logging
 
-@app.route("/api/add-filter", methods=["POST"])
+bp = Blueprint("add_api", __name__)
+
+@bp.route("/api/add-filter", methods=["POST"])
 def add_goodlist():
     try:
         data=request.get_json()
@@ -36,7 +38,7 @@ def add_goodlist():
     return jsonify({"status":"success"})
 
 
-@app.route("/api/add-site", methods=["POST"])
+@bp.route("/api/add-site", methods=["POST"])
 def add_websites():
     try:
         data=request.get_json()

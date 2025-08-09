@@ -1,13 +1,15 @@
 from flask_cors import CORS
 from flask import Flask
 import json
-from flask import request, jsonify
+from flask import Blueprint,request, jsonify
 app = Flask(__name__)
 CORS(app)
 
-from utils import logging
+from .utils import logging
 
-@app.route("/api/remove-filter", methods=["POST"]) #Web Link Endpoint
+bp = Blueprint("remove_api", __name__)
+
+@bp.route("/api/remove-filter", methods=["POST"]) #Web Link Endpoint
 def remove_goodlist():
     try:
         data = request.get_json()
@@ -41,7 +43,7 @@ def remove_goodlist():
         
     return jsonify({"status": "success"})
 
-@app.route("/api/remove-site", methods=["POST"]) #Web Link Endpoint
+@bp.route("/api/remove-site", methods=["POST"]) #Web Link Endpoint
 def remove_websites():
     try:
         data = request.get_json()

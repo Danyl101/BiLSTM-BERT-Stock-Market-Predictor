@@ -1,7 +1,7 @@
                                     POST CONSTRUCTION MODEL LOG
 
 
-Tags:[LSTM,TCN,SCRAPER,AUTOMATION,LOADER,SEPERATOR,BILSTM]
+Tags:[LSTM,TCN,SCRAPER,LOADER,BILSTM,API,REACT]
 ___________________________
 
 Default Model [TCN]
@@ -275,24 +275,35 @@ Iteration 2 [API]
 Advanced the apis especially typescript to receive inputs from the browser, changed the funcionalities a bit , now instead of adding and viewing only , we instead can now add filters and sites view them as well as remove any ones , these were all done in async , ran into a few glitches here and there , so added logging to the entire flask api 
 ___________________________________
 
-Iteration 3[API]
+Iteration 3 [API]
 
 Modularized the code ,split the flask api into two addition api and removal api and the same was also done to typescript apis , build a new run program for flask to avoid manually running the individual flask files ,but ran into some issues here due to the pathing issues 
 
 ___________________________________
+
+Iteration 4 [API]
+
+The pathing issues were caused by parent directory being executing files directory , solved this by setting a python path and then running program ,also added two new api calls one to call scraper and one to call extractor
+each executing their respective python files 
+
 ___________________________________
 
-Default Model[REACT]
+Default Model [REACT]
 
 So changed the components section as in list editor and site editor to be aligned with the app program ,set up interfaces on both of them to properly define the parameters in functions , in App created an interface to properly define the data import coming in from api , and changed the function of all keyword (site,list,setsites,setlist) from  being a simple usestate to being a string
 
 ___________________________________
 
 
-Iteration 1[REACT]
+Iteration 1 [REACT]
 
 Decidied to stop development of gui until the api functionalities were all working , decided to develop a barebones structure with each api call having a button and sharing the same textfield , gui will be further developed once all the api calls are properly working
 
+___________________________________
+
+Iteration 2 [REACT]
+
+So since all the apis calls were working properly decided to move forward with react ui and build a minimal and clean ui that is enough for demo representation , further additions will be made once the full system is complete and mostly just to add polish
 
 
 

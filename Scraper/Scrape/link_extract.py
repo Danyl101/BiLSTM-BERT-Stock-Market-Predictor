@@ -8,8 +8,8 @@ from selenium.common.exceptions import TimeoutException, StaleElementReferenceEx
 from webdriver_manager.chrome import ChromeDriverManager
 
 from urllib.parse import urlparse
-from utils import write_to_json,is_browser_alive,setup_driver,goodlist
-from robot import can_scrape
+from .utils import write_to_json,is_browser_alive,setup_driver,goodlist
+from .robot import can_scrape
 
 
 def scroll_and_scrape(driver, url, max_scrolls=10):#Function to scroll and scrape articles from a given URL
